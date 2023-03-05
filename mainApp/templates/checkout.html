@@ -1,0 +1,122 @@
+{% extends 'index.html' %}
+
+
+{% block title %}
+<title>Ashop | Checkout Page</title>
+{% endblock title %}
+{% block content %}
+<div class="container-fluid mt-2">
+    <div class="row">
+        <div class="col-md-6 col-12">
+            <h5 class="background text-light text-center p-1">Billing Details</h5>
+            <table class="table table-bordered table-striped table-hover table-dark">
+                <tr>
+                    <th>Full Name</th>
+                    <td>{{user.name}}</td>
+                </tr>
+                <tr>
+                    <th>User Name</th>
+                    <td>{{user.username}}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{user.email}}</td>
+                </tr>
+                <tr>
+                    <th>Phone</th>
+                    <td>{{user.phone}}</td>
+                </tr>
+                <tr>
+                    <th>House or Building Number</th>
+                    <td>{{user.addressline1}}</td>
+                </tr>
+                <tr>
+                    <th>Street Number or NearBy</th>
+                    <td>{{user.addressline2}}</td>
+                </tr>
+                <tr>
+                    <th>Village or Locality</th>
+                    <td>{{user.addressline3}}</td>
+                </tr>
+                <tr>
+                    <th>Pin code</th>
+                    <td>{{user.pin}}</td>
+                </tr>
+                <tr>
+                    <th>City</th>
+                    <td>{{user.city}}</td>
+                </tr>
+                <tr>
+                    <th>Satae</th>
+                    <td>{{user.state}}</td>
+                </tr>
+                <tr>
+                    <td><a href="/update-profile" class="btn mybtn background text-light btn-sm w-100">Update
+                            Profile</a></td>
+                </tr>
+            </table>
+
+        </div>
+        <div class="col-md-6 col-12">
+            <h5 class="background text-light text-center p-1">Cart Page</h5>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover">
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Color</th>
+                        <th>Size</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                    </tr>
+                    {% for i in cart %}
+                    <tr>
+                        <td><img src="{{i.pic}}" width="100px" height="75px" class="rounded" alt=""></td>
+                        <td>{{i.name}}</td>
+                        <td>{{i.color}}</td>
+                        <td>{{i.size}}</td>
+                        <td>{{i.price}}</td>
+                        <td>{{i.qty}}</td>
+                        <td>{{i.total}}</td>
+
+                    </tr>
+                    {% endfor %}
+
+                </table>
+            </div>
+            <table class="table table-borderd table-striped table-hover">
+                <tr>
+                    <th>Total Amount</th>
+                    <td>&#8377;{{total}}</td>
+                </tr>
+                <tr>
+                    <th>Shipping Amount</th>
+                    <td>&#8377;{{shipping}}</td>
+                </tr>
+                <tr>
+                    <th>Final Amount</th>
+                    <td>&#8377;{{final}}</td>
+                </tr>
+                <form action="/order/" method="post">
+                    {% csrf_token %}
+                    <tr>
+                        <th>Payment Mode</th>
+                        <td>
+                            <select name="mode" class="form-select">
+                                <option value="COD">COD</option>
+                                <option value="Net Banking">Net Banking/card/UPI/</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th colspan="2"><button type="submit" class="btn background text-light w-100 btn-sm">Place
+                                Order</button></th>
+                    </tr>
+                </form>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
